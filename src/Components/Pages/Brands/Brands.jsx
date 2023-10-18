@@ -2,7 +2,7 @@ import BrandCard from "./BrandCard";
 import PropTypes from 'prop-types';
 
 const Brands = ({brands}) => {
-    console.log(brands);
+    
     return (
         <div className="max-w-7xl mx-auto my-20">
             <h2 className="text-center font-montez text-5xl font-semibold italic mb-10">Brands</h2>
