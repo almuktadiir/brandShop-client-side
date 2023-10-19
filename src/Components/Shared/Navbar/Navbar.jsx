@@ -57,15 +57,15 @@ const Navbar = () => {
                                     <p className="text-black mx-1 border-0">{user.displayName}</p>
                                 </div>
                                 <div>
-                                    <Link onClick={handleLogOut} className="btn btn-sm bg-[#ee62a8] text-xs text-white px-2 border-0">Logout</Link>
+                                    <Link onClick={handleLogOut} className="btn btn-neutral text-xs text-white px-4 border-0">Logout</Link>
                                 </div>
                             </div>
                             :
-                            <div className="dropdown dropdown-hover">
+                            <div className="dropdown">
                                 <label tabIndex={0} className="btn m-1 font-playFair italic">Register Here</label>
                                 <div>
-                                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-[#909195] rounded-box w-72 -ml-[8rem]">
-                                        <li><NavLink className={`font-playFair text-lg italic`} to={`/login`}>Sign In</NavLink></li>
+                                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-blue-gray-300 rounded-box w-72 -ml-[8rem]">
+                                        <li><NavLink className={`font-playFair text-lg italic font-bold text-center text-white w-full`} to={`/login`}>Sign In</NavLink></li>
 
                                         <li><GoogleLogin></GoogleLogin></li>
                                     </ul>

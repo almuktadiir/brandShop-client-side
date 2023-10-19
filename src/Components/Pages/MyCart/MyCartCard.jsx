@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Swal from 'sweetalert2';
 
 const MyCartCard = ({ cartItems, cart, setCart }) => {
     const { brand, description, image, price, name, _id } = cartItems;
@@ -11,7 +12,23 @@ const MyCartCard = ({ cartItems, cart, setCart }) => {
         .then(res => res.json())
         .then(data => {
             if(data.deletedCount > 0){
-                alert('deleted successfully');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                      )
+                    }
+                  })
                 // remove from UI
                 const remaining = cart.filter(cartProducts => cartProducts._id !== id);
                 setCart(remaining);
