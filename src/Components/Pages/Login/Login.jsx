@@ -1,12 +1,60 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "./googleLogin";
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 
 
 const Login = () => {
+    const {loginUser} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleLogin = e => {
         e.preventDefault();
+
+        const form = new FormData(e.target);
+        const email = form.get('email');
+        const password = form.get('password');
+        console.log(email, password);
+
+        if(password.length < 6){
+            return (
+                Swal.fire({
+                    title: 'password must be 6 character or longer!',
+                    icon: 'error',
+                    confirmButtonText: 'Try again'
+                })
+            )
+        } else if(!/^(?=.*[A-Z])(?=.*[\W_]).+$/.test(password)){
+            return Swal.fire({
+                title: 'Password must have at least one uppercase, lowecase and special characters!',
+                icon: 'error',
+                confirmButtonText: 'Try again'
+            })
+        }
+
+
+        loginUser(email, password)
+        .then(res => {
+            console.log(res.user);
+            Swal.fire({
+                title: 'successfully login',
+                icon: 'success',
+                confirmButtonText: 'cool'
+            })
+            navigate(location?.state ? location.state : '/')
+        })
+        .catch(err => {
+            console.log(err.message);
+            Swal.fire({
+                title: 'Enter valid information',
+                icon: 'error',
+                confirmButtonText: 'sorry'
+            })
+        })
+
     }
 
     return (
@@ -76,16 +124,7 @@ const Login = () => {
 
             {/* google login */}
             <p className="text-center font-medium">Or</p>
-            <div className="mb-4 text-center border-t-pink-500 bg-[#d9e5ffff] py-5">
-                {/* <button
-                    onClick={handleLogin}
-                    className="flex select-none items-center gap-3 rounded-lg border border-blue-gray-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-blue-gray-500 transition-all hover:opacity-75 focus:ring focus:ring-blue-gray-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none mx-auto"
-                    type="submit"
-                    data-ripple-dark="true"
-                >
-                    <img src={icon} alt="metamask" className="h-6 w-6" />
-                    Continue with Google
-                </button> */}
+            <div className="mb-4 text-center border-t-pink-500 bg-[#96979bff] py-5">
                 <GoogleLogin></GoogleLogin>
             </div>
 

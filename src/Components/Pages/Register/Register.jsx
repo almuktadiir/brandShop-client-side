@@ -1,15 +1,82 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Register = () => {
+    const { createUser, handleUserProfile } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleRegister = e => {
         e.preventDefault();
+
+        const form = new FormData(e.target);
+        const name = form.get('name');
+        const img = form.get('img');
+        const email = form.get('email');
+        const password = form.get('password');
+        const checkbox = form.get('checkbox');
+        console.log(name, img, email, password);
+
+
+        if (password.length < 6) {
+            return (
+                Swal.fire({
+                    title: 'password must be 6 character or longer!',
+                    text: 'Enter Your Password',
+                    icon: 'error',
+                    confirmButtonText: 'Try again'
+                })
+            )
+        } else if (!/^(?=.*[A-Z])(?=.*[\W_]).+$/.test(password)) {
+            return (
+                Swal.fire({
+                    title: 'Password must have at least one uppercase, lowecase and special characters!',
+                    text: 'Enter correct password',
+                    icon: 'error',
+                    confirmButtonText: 'Try again'
+                })
+            )
+        } else if (!checkbox) {
+            return (
+                Swal.fire({
+                    title: 'Accept terms & conditions',
+                    icon: 'error',
+                    confirmButtonText: 'Try again'
+                })
+            )
+        }
+
+        createUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                handleUserProfile(name, img)
+                    .then(() => {
+                        Swal.fire({
+                            title: 'Account created successfully',
+                            icon: 'success',
+                            confirmButtonText: 'Cool'
+                        })
+                        navigate(location?.state ? location.state : '/')
+                    })
+            })
+            .catch(err => {
+                console.log(err.message);
+                Swal.fire({
+                    title: 'Email already in use',
+                    text: 'Use another email',
+                    icon: 'error',
+                    confirmButtonText: 'Try again'
+                })
+            })
     }
 
     return (
         <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-none text-center my-10">
-            <div className="w-1/4 mx-auto mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-pink-600 to-pink-400 bg-clip-border text-white shadow-lg shadow-pink-500/40">
-                <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+            <div className="w-1/4 mx-auto mb-4 grid h-28 place-items-center overflow-hidden rounded-xl bg-[#96979bff] bg-clip-border text-white shadow-lg shadow-pink-500/40">
+                <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal  text-white antialiased">
                     Sign Up
                 </h4>
                 <p className="mt-1 text-white block font-sans text-base font-normal leading-relaxed antialiased">
@@ -79,7 +146,7 @@ const Register = () => {
                     >
                         <input
                             type="checkbox"
-                            className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-500 hover:before:opacity-10 border-pink-500"
+                            className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border  transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-500 hover:before:opacity-10 border-pink-500"
                             id="checkbox"
                             name="checkbox"
                         />
@@ -118,7 +185,7 @@ const Register = () => {
 
                 {/* submit button */}
                 <button
-                    className="mt-6 block w-full select-none rounded-lg bg-pink-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    className="mt-6 block w-full select-none rounded-lg bg-[#96979bff] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     type="submit"
                     data-ripple-light="true"
                 >
