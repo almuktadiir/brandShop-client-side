@@ -1,4 +1,5 @@
 import { useLoaderData, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const BrandProductUpdate = () => {
@@ -24,7 +25,7 @@ const BrandProductUpdate = () => {
         const updateProduct = {productName, brand, imageURL, productType, price, rating, description}
         console.log(updateProduct );
 
-        fetch(`http://localhost:5000/products/${_id}`, {
+        fetch(`https://brand-shop-server-1fq9cdch1-almuktadiir.vercel.app/products/${_id}`, {
             method: 'PUT', 
             headers: {
                 'content-type': 'application/json'
@@ -34,7 +35,11 @@ const BrandProductUpdate = () => {
         .then(res => res.json())
         .then(data => {
             if(data.matchedCount > 0){
-                alert('updated successfully')
+                Swal.fire({
+                    title: 'Product update successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
             }
             console.log(data);
         })

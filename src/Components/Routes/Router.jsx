@@ -23,7 +23,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
-                loader: ()=> fetch('http://localhost:5000/brand')
+                loader: ()=> fetch('https://brand-shop-server-1fq9cdch1-almuktadiir.vercel.app/brand')
             },
             {
                 path: '/addproduct',
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
             {
                 path: '/cart',
                 element: <PrivateRoute><MyCart></MyCart></PrivateRoute>,
-                loader: ()=> fetch('http://localhost:5000/cartproducts')
+                loader: ()=> fetch('https://brand-shop-server-1fq9cdch1-almuktadiir.vercel.app/cartproducts')
             },
             {
                 path: '/login',
@@ -45,17 +45,17 @@ const router = createBrowserRouter([
             {
                 path: '/brandDetails/:id',
                 element: <BrandCardDetails></BrandCardDetails>,
-                loader: () => fetch('http://localhost:5000/products')
+                loader: () => fetch('https://brand-shop-server-1fq9cdch1-almuktadiir.vercel.app/products')
             },
             {
                 path: '/brandproduct/:id',
                 element: <PrivateRoute><BrandProductDetails></BrandProductDetails></PrivateRoute>,
-                loader: () => fetch('http://localhost:5000/products')
+                loader: () => fetch('https://brand-shop-server-1fq9cdch1-almuktadiir.vercel.app/products')
             },
             {
                 path: '/brandproductupdate/:id',
                 element: <PrivateRoute><BrandProductUpdate></BrandProductUpdate></PrivateRoute>,
-                loader: ()=> fetch('http://localhost:5000/products')
+                loader: ()=> fetch('https://brand-shop-server-1fq9cdch1-almuktadiir.vercel.app/products')
             }
         ]
     },

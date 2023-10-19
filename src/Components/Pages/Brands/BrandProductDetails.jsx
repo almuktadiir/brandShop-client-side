@@ -27,7 +27,7 @@ const BrandProductDetails = () => {
         }
         console.log(cartProduct);
 
-        fetch('http://localhost:5000/cartproducts', {
+        fetch('https://brand-shop-server-1fq9cdch1-almuktadiir.vercel.app/cartproducts', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
