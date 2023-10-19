@@ -10,6 +10,7 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import BrandCardDetails from "../Pages/Brands/BrandCardDetails";
 import BrandProductDetails from "../Pages/Brands/BrandProductDetails";
+import BrandProductUpdate from "../Pages/Brands/BrandProductUpdate";
 
 
 const router = createBrowserRouter([
@@ -29,7 +30,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/cart',
-                element: <MyCart></MyCart>
+                element: <MyCart></MyCart>,
+                loader: ()=> fetch('http://localhost:5000/cartproducts')
             },
             {
                 path: '/login',
@@ -48,6 +50,11 @@ const router = createBrowserRouter([
                 path: '/brandproduct/:id',
                 element: <BrandProductDetails></BrandProductDetails>,
                 loader: () => fetch('http://localhost:5000/products')
+            },
+            {
+                path: '/brandproductupdate/:id',
+                element: <BrandProductUpdate></BrandProductUpdate>,
+                loader: ()=> fetch('http://localhost:5000/products')
             }
         ]
     },

@@ -10,6 +10,38 @@ const BrandProductDetails = () => {
 
     const { brand, description, imageURL, price, productName, productType } = findProduct;
 
+    const handleAddToCart = () =>{
+        console.log('click');
+        const brand = findProduct.brand;
+        const imageURL = findProduct.imageURL;
+        const price = findProduct.price;
+        const productName = findProduct.productName;
+        const description = findProduct.description;
+        const cartProduct = {
+            brand: brand,
+            image: imageURL,
+            price: price,
+            name: productName,
+            description: description
+        }
+        console.log(cartProduct);
+
+        fetch('http://localhost:5000/cartproducts', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(cartProduct)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.insertedId){
+                alert('product added successfully in db')
+            }
+            console.log(data);
+        })
+    }
+
     return (
 
         <div className="relative flex flex-col text-gray-700 bg-white shadow-md max-w-3xl mx-auto my-10 rounded-xl bg-clip-border">
@@ -41,7 +73,8 @@ const BrandProductDetails = () => {
             <div className="p-6 pt-0">
                 <button
                     className="block w-full select-none rounded-lg bg-blue-gray-900/10 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-blue-gray-900 transition-all hover:scale-105 focus:scale-105 focus:opacity-[0.85] active:scale-100 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    type="button"
+                    type="submit"
+                    onClick={handleAddToCart}
                 >
                     Add to Cart
                 </button>
