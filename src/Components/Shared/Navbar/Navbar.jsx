@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from '../../../assets/logo1.png'
+import GoogleLogin from "../../Pages/Login/googleLogin";
 
 
 const Navbar = () => {
@@ -30,8 +31,8 @@ const Navbar = () => {
                     {navLinks}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">G Signin</a>
+            <div className="navbar-end text-white">
+                <GoogleLogin></GoogleLogin>
             </div>
         </div>
         </div>
