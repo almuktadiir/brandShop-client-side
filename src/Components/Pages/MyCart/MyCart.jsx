@@ -1,12 +1,18 @@
 import { useLoaderData } from "react-router-dom";
 import MyCartCard from "./MyCartCard";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 
 const MyCart = () => {
+    const {user} = useContext(AuthContext);
+    const currentEmail = user.email;
+
     const cartLoader = useLoaderData();
-    const [cart, setCart] = useState(cartLoader);
-    console.log(cartLoader);
+
+    const currentUserData = cartLoader.filter(cartData => cartData.email === currentEmail);
+    console.log(currentUserData);
+    const [cart, setCart] = useState(currentUserData);
 
     return (
         <div className="max-w-4xl mx-auto my-10 grid grid-cols-1 gap-6">

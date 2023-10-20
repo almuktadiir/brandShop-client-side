@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 
 const BrandProductDetails = () => {
+    const {user} = useContext(AuthContext);
 
     const brandProducts = useLoaderData();
     const { id } = useParams();
@@ -23,7 +26,8 @@ const BrandProductDetails = () => {
             image: imageURL,
             price: price,
             name: productName,
-            description: description
+            description: description,
+            email: user.email
         }
         console.log(cartProduct);
 

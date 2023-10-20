@@ -77,6 +77,6 @@ export default MyCartCard;
 
 MyCartCard.propTypes = {
     cartItems: PropTypes.object,
-    cart: PropTypes.object,
+    cart: PropTypes.array,
     setCart: PropTypes.func
 }

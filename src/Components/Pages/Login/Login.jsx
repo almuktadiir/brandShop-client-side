@@ -6,10 +6,13 @@ import Swal from "sweetalert2";
 
 
 
+
 const Login = () => {
     const {loginUser} = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
+
+    
 
     const handleLogin = e => {
         e.preventDefault();
@@ -39,6 +42,8 @@ const Login = () => {
         loginUser(email, password)
         .then(res => {
             console.log(res.user);
+            const userEmail = res.user.email;
+            console.log(userEmail);
             Swal.fire({
                 title: 'successfully login',
                 icon: 'success',
@@ -54,6 +59,8 @@ const Login = () => {
                 confirmButtonText: 'sorry'
             })
         })
+
+        
 
     }
 

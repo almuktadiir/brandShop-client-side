@@ -17,36 +17,36 @@ const BrandCardDetails = () => {
     return (
         <div>
             <Carousel className="">
-            <img
-                src={carousel4}
-                alt="image 1"
-                className="h-[600px] w-full object-cover"
-            />
-            <img
-                src={carousel2}
-                alt="image 2"
-                className="h-[600px] w-full object-cover"
-            />
-            <img
-                src={carousel1}
-                alt="image 4"
-                className="h-[600px] w-full object-cover"
-            />
-        </Carousel>
+                <img
+                    src={carousel4}
+                    alt="image 1"
+                    className="h-[600px] w-full object-cover"
+                />
+                <img
+                    src={carousel2}
+                    alt="image 2"
+                    className="h-[600px] w-full object-cover"
+                />
+                <img
+                    src={carousel1}
+                    alt="image 4"
+                    className="h-[600px] w-full object-cover"
+                />
+            </Carousel>
 
-            {filterBrand.length !== 0 ? 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto my-24">
-            {
-                filterBrand.map(brandProduct => <BrandProducts
-                    key={brandProduct._id}
-                    product={brandProduct}
-                ></BrandProducts>)
-            }
-        </div>
-            :
-            <div>
-                <BrandNotAvailable></BrandNotAvailable>
-            </div>
+            {filterBrand.length !== 0 ?
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto my-24">
+                    {
+                        filterBrand.map(brandProduct => <BrandProducts
+                            key={brandProduct._id}
+                            product={brandProduct}
+                        ></BrandProducts>)
+                    }
+                </div>
+                :
+                <div>
+                    <BrandNotAvailable></BrandNotAvailable>
+                </div>
             }
         </div>
     );
