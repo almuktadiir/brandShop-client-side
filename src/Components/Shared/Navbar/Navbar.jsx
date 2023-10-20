@@ -3,6 +3,7 @@ import logo from '../../../assets/logo1.png'
 import GoogleLogin from "../../Pages/Login/googleLogin";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import DarkMode from "../../Pages/DarkMode/DarkMode";
 
 
 const Navbar = () => {
@@ -21,6 +22,7 @@ const Navbar = () => {
         <li><NavLink className={`font-playFair text-lg italic`} to={`/`}>Home</NavLink></li>
         <li><NavLink className={`font-playFair text-lg italic`} to={`/addproduct`}>Add Product</NavLink></li>
         <li><NavLink className={`font-playFair text-lg italic`} to={`/cart`}>My Cart</NavLink></li>
+        <li><NavLink><DarkMode></DarkMode></NavLink></li>
     </>
 
     return (
