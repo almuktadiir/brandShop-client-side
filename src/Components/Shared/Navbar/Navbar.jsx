@@ -1,13 +1,26 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from '../../../assets/logo1.png'
 import GoogleLogin from "../../Pages/Login/googleLogin";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import DarkMode from "../../Pages/DarkMode/DarkMode";
+import ToggleBtn from "./ToggleBtn";
 
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [theme, setTheme] = useState(
+        localStorage.getItem('theme')? localStorage.getItem('theme'): 'light'
+    )
+
+    useEffect(()=>{
+        localStorage.setItem('theme', theme);
+        const localTheme = localStorage.getItem('theme');
+        document.querySelector('html').setAttribute('data-theme', localTheme)
+    }, [theme])
+
+    const handleToggle = e => {
+        e.target.checked ? setTheme('dark') : setTheme('light');
+    }
 
     const handleLogOut = () => {
         logOut()
@@ -22,7 +35,7 @@ const Navbar = () => {
         <li><NavLink className={`font-playFair text-lg italic`} to={`/`}>Home</NavLink></li>
         <li><NavLink className={`font-playFair text-lg italic`} to={`/addproduct`}>Add Product</NavLink></li>
         <li><NavLink className={`font-playFair text-lg italic`} to={`/cart`}>My Cart</NavLink></li>
-        <li><NavLink><DarkMode></DarkMode></NavLink></li>
+        <li><ToggleBtn handleToggle={handleToggle}></ToggleBtn></li>
     </>
 
     return (
@@ -71,6 +84,7 @@ const Navbar = () => {
 
                                         <li><GoogleLogin></GoogleLogin></li>
                                     </ul>
+                                    
                                 </div>
                             </div>
                     }
