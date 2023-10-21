@@ -62,7 +62,7 @@ const Navbar = () => {
                     {
                         user?.email ?
 
-                            < div className="flex items-center justify-end">
+                            < div className="items-center justify-end md:flex-row flex flex-col">
                                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                     <div className="w-10 rounded-full">
                                         <img src={user.photoURL} />
